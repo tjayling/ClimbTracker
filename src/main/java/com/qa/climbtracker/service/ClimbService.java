@@ -1,6 +1,5 @@
 package com.qa.climbtracker.service;
 
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -32,7 +31,7 @@ public class ClimbService {
 	}
 	
 	public List<ClimbDto> createMany(List<ClimbDao> climbs) {
-		return this.mapToDto(this.repo.saveAll(climbs).stream().map(this::mapToDto).collect(Collectors.toList()));
+		return this.repo.saveAll(climbs).stream().map(this::mapToDto).collect(Collectors.toList());
 	}
 
 	public List<ClimbDto> readAll() {
@@ -41,10 +40,7 @@ public class ClimbService {
 	
 	public ClimbDto update(ClimbDao newClimb) {
 		ClimbDao climb = this.repo.findById(newClimb.getId()).get();
-		climb.setUserId(newClimb.getUserId());
-		climb.setRouteId(newClimb.getRouteId());
 		climb.setTimeTaken(newClimb.getTimeTaken());
-		climb.setDateClimbed(newClimb.getDateClimbed());
 		climb.setCompletedClimb(newClimb.getCompletedClimb());
 
 		return this.mapToDto(this.repo.save(climb));
@@ -64,12 +60,8 @@ public class ClimbService {
 		return this.repo.readUserId(userId).stream().map(this::mapToDto).collect(Collectors.toList());
 	}
 	
-	public List<ClimbDto> readRouteId(Long routeId) {
-		return this.repo.readUserId(routeId).stream().map(this::mapToDto).collect(Collectors.toList());
-	}
-	
-	public List<ClimbDto> readDate(Long userId, Date date) {
-		return this.repo.readDate(userId, date).stream().map(this::mapToDto).collect(Collectors.toList());
+	public List<ClimbDto> readRouteId(Long userId, Long routeId) {
+		return this.repo.readRouteId(userId, routeId).stream().map(this::mapToDto).collect(Collectors.toList());
 	}
 	
 	public List<ClimbDto> readCompleted(Long userId, Boolean completed) {

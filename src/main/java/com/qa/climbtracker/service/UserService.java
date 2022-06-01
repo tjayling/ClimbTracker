@@ -31,7 +31,7 @@ public class UserService {
 	}
 	
 	public List<UserDto> createMany(List<UserDao> users) {
-		return this.mapToDto(this.repo.saveAll(users).stream().map(this::mapToDto).collect(Collectors.toList()));
+		return this.repo.saveAll(users).stream().map(this::mapToDto).collect(Collectors.toList());
 	}
 
 	public List<UserDto> readAll() {
@@ -40,7 +40,10 @@ public class UserService {
 	
 	public UserDto update(UserDao newUser) {
 		UserDao user = this.repo.findById(newUser.getId()).get();
-		user.setGrade(null);
+		user.setFirstName(newUser.getFirstName());
+		user.setLastName(newUser.getLastName());
+		user.setUsername(newUser.getUsername());
+		user.setPassword(newUser.getPassword());
 		return this.mapToDto(this.repo.save(user));
 	}
 	
@@ -54,8 +57,8 @@ public class UserService {
 		return this.repo.readId(id).stream().map(this::mapToDto).collect(Collectors.toList());
 	}
 	
-	public UserDto readEmailAddress(String emailAddress) {
-		return this.repo.readEmailAddress(emailAddress).stream().map(this::mapToDto).collect(Collectors.toList());
+	public List<UserDto> readUsername(String username) {
+		return this.repo.readUsername(username).stream().map(this::mapToDto).collect(Collectors.toList());
 	}
 }
 

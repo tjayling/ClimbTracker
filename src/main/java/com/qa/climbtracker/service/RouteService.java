@@ -1,6 +1,5 @@
 package com.qa.climbtracker.service;
 
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -32,7 +31,7 @@ public class RouteService {
 	}
 	
 	public List<RouteDto> createMany(List<RouteDao> routes) {
-		return this.mapToDto(this.repo.saveAll(routes).stream().map(this::mapToDto).collect(Collectors.toList()));
+		return this.repo.saveAll(routes).stream().map(this::mapToDto).collect(Collectors.toList());
 	}
 
 	public List<RouteDto> readAll() {
