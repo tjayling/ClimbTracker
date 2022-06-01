@@ -32,7 +32,7 @@ public class ClimbService {
 	}
 	
 	public List<ClimbDto> createMany(List<ClimbDao> climbs) {
-		return this.mapToDto(this.repo.saveAll(climbs).stream().map(this::mapToDto).collect(Collectors.toList()));
+		return this.repo.saveAll(climbs).stream().map(this::mapToDto).collect(Collectors.toList());
 	}
 
 	public List<ClimbDto> readAll() {
@@ -64,8 +64,8 @@ public class ClimbService {
 		return this.repo.readUserId(userId).stream().map(this::mapToDto).collect(Collectors.toList());
 	}
 	
-	public List<ClimbDto> readRouteId(Long routeId) {
-		return this.repo.readUserId(routeId).stream().map(this::mapToDto).collect(Collectors.toList());
+	public List<ClimbDto> readRouteId(Long userId, Long routeId) {
+		return this.repo.readRouteId(userId, routeId).stream().map(this::mapToDto).collect(Collectors.toList());
 	}
 	
 	public List<ClimbDto> readDate(Long userId, Date date) {

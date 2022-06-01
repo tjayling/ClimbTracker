@@ -14,8 +14,8 @@ public interface UserRepo extends JpaRepository<UserDao, Long> {
 	@Query("SELECT user FROM UserDao user WHERE user.id = ?1")
 	public List<UserDao> readId(Long id);
 
-	@Query("SELECT user FROM UserDao user WHERE user.emailAddress = ?1")
-	public UserDao readEmailAddress(String emailAddress);
+	@Query("SELECT user FROM UserDao user WHERE user.username = ?1")
+	public List<UserDao> readUsername(String username);
 	
 	@Modifying
 	@Query("DELETE FROM UserDao user WHERE user.id IN ?1")

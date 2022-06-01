@@ -63,15 +63,9 @@ public class UserController {
 		return new ResponseEntity<>(users, HttpStatus.OK);
 	}
 
-	@GetMapping("/readBy/email_address:{emailAddress}")
-	public ResponseEntity<List<UserDto>> readUserId(@PathVariable String emailAddress) {
-		List<UserDto> users = this.service.readEmailAddress(emailAddress);
-		return new ResponseEntity<>(users, HttpStatus.OK);
-	}
-	
-	@GetMapping("/readBy/password:{password}")
-	public ResponseEntity<List<UserDto>> readPassword(@PathVariable String password) {
-		List<UserDto> users = this.service.readPassword(password);
+	@GetMapping("/readBy/username:{username}")
+	public ResponseEntity<List<UserDto>> readUserId(@PathVariable String username) {
+		List<UserDto> users = this.service.readUsername(username);
 		return new ResponseEntity<>(users, HttpStatus.OK);
 	}
 
