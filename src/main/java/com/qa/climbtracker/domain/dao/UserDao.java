@@ -1,9 +1,15 @@
 package com.qa.climbtracker.domain.dao;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,6 +25,9 @@ public class UserDao {
 	private String lastName;
 	private String username;
 	private String password;
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+	@JsonBackReference
+	private List<ClimbDao> climbs;
 }
 
 // id

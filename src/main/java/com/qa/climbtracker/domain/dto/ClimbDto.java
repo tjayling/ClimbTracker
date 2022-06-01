@@ -1,6 +1,7 @@
 package com.qa.climbtracker.domain.dto;
 
-import java.util.Date;
+import com.qa.climbtracker.domain.dao.RouteDao;
+import com.qa.climbtracker.domain.dao.UserDao;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,10 +10,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ClimbDto {
 	private Long id;
-	private String userId;
-	private String routeId;
+	private UserDao user;
+	private RouteDao route;
 	private Integer timeTaken;
-	private Date dateClimbed;
 	private Boolean completedClimb;
 }
 
@@ -20,5 +20,4 @@ public class ClimbDto {
 // user id
 // route id
 // time taken
-// data climbed
 // completed climb

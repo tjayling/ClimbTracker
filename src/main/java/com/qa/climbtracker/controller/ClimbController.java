@@ -1,6 +1,5 @@
 package com.qa.climbtracker.controller;
 
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +33,8 @@ public class ClimbController {
 	
 	@PostMapping("/create")
 	public ResponseEntity<ClimbDto> create(@RequestBody ClimbDao climb) {
+		System.out.println("////////////////////////////////////////////////");
+		System.out.println(climb);
 		return new ResponseEntity<>(this.service.create(climb), HttpStatus.CREATED);
 	}
 	
@@ -76,18 +77,13 @@ public class ClimbController {
 		return new ResponseEntity<>(climbs, HttpStatus.OK);
 	}
 	
-	@GetMapping("/readBy/user_id:{userId}/route_date:{routeDate}")
-	public ResponseEntity<List<ClimbDto>> readDate(@PathVariable Long userId, @PathVariable Date routeDate) {
-		List<ClimbDto> climbs = this.service.readDate(userId, routeDate);
-		return new ResponseEntity<>(climbs, HttpStatus.OK);
-	}
-	
 	@GetMapping("/readBy/user_id:{userId}/route_completed:{completed}")
 	public ResponseEntity<List<ClimbDto>> readCompleted(@PathVariable Long userId, @PathVariable Boolean completed) {
 		List<ClimbDto> climbs = this.service.readCompleted(userId, completed);
 		return new ResponseEntity<>(climbs, HttpStatus.OK);
 	}
 	
+	//user id
 	//route id
 	//time taken
 	//data climbed

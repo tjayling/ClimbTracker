@@ -1,5 +1,9 @@
 package com.qa.climbtracker.domain.dto;
 
+import java.util.List;
+
+import com.qa.climbtracker.domain.dao.ClimbDao;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -8,6 +12,7 @@ import lombok.NoArgsConstructor;
 public class RouteDto {
 	private Long id;
 	private String grade;
+	private List<ClimbDao> climbs;
 }
 
 // id
