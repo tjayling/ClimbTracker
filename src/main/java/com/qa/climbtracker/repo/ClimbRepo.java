@@ -18,7 +18,7 @@ public interface ClimbRepo extends JpaRepository<ClimbDao, Long> {
 	@Query("SELECT climb FROM ClimbDao climb WHERE climb.userId = ?1")
 	public List<ClimbDao> readUserId(Long userId);
 	
-	@Query("SELECT climb FROM ClimbDao climb WHERE climb.userId = ?1 climb.routeId = ?2")
+	@Query("SELECT climb FROM ClimbDao climb WHERE climb.userId = ?1 AND climb.routeId = ?2")
 	public List<ClimbDao> readRouteId(Long userId, Long routeId);
 	
 	@Query("SELECT climb FROM ClimbDao climb WHERE climb.userId = ?1 AND climb.dateClimbed = ?2")
