@@ -4,63 +4,78 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Log In</title>
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/login.css" />
+    <title>login</title>
   </head>
-  <body>
-    <header>
-      <h1>Welcome back</h1>
-      <h2>Please enter your login details to continue</h2>
+  <body id="index">
+    <!-- <header style="display: flex"> -->
+    <header id="header" role="banner" class="hero">
+      <nav class="left-buffer left-nav"></nav>
+      <div class="title-container">
+        <h1>welcome</h1>
+      </div>
+      <div class="right-buffer right-nav"></div>
     </header>
-    <section>
-      <div id="login-container">
-        <div id="signup-container" style="display: none">
-          <!-- FIRST NAME INPUT -->
-          <div class="input-container" id="last-name-input-container">
-            <input
-              type="text"
-              name="first-name"
-              id="first-name-input"
-              placeholder="first name..."
-            />
-          </div>
-          <!-- LAST NAME INPUT -->
-          <div class="input-container" id="last-name-input-container">
-            <input
-              type="text"
-              name="last-name"
-              id="last-name-input"
-              placeholder="last name..."
-            />
+    <section id="login-form">
+      <div class="div-default" id="login-form-container">
+        <div id="login-container">
+          <div id="signup-container" style="display: none">
+            <!-- FIRST NAME INPUT -->
+            <div class="input-container" id="last-name-input-container">
+              <input
+                type="text"
+                name="first-name"
+                id="first-name-input"
+                placeholder="first name..."
+              />
+            </div>
+            <!-- LAST NAME INPUT -->
+            <div class="input-container" id="last-name-input-container">
+              <input
+                type="text"
+                name="last-name"
+                id="last-name-input"
+                placeholder="last name..."
+              />
+            </div>
           </div>
         </div>
-      </div>
-      <!-- USERNAME INPUT -->
-      <div class="input-container" id="username-input-container">
-        <input
-          type="text"
-          name="username"
-          id="username-input"
-          placeholder="username..."
-        />
-      </div>
+        <!-- USERNAME INPUT -->
+        <div class="input-container" id="username-input-container">
+          <input
+            type="text"
+            name="username"
+            id="username-input"
+            placeholder="username..."
+          />
+        </div>
         <!-- PASSWORD INPUT -->
-      <div class="input-container" id="password-input-container">
-        <input
-          type="text"
-          name="password"
-          id="password-input"
-          placeholder="password..."
-        />
-      </div>
+        <div class="input-container" id="password-input-container">
+          <input
+            type="text"
+            name="password"
+            id="password-input"
+            placeholder="password..."
+          />
+        </div>
         <!-- LOG IN BUTTON -->
         <div id="login-button">
-          <button onclick="logIn()">log in</button>
-          <a onclick="toggleSignUp()">new user?</a>
+          <div id="login-button-container">
+            <button onclick="logIn()">log in</button>
+          </div>
+          <div id="new-user-container">
+            <a onclick="toggleSignUp()">new user?</a>
+          </div>
         </div>
         <!-- SIGN UP BUTTON -->
         <div id="signup-button" style="display: none">
-          <button onclick="signUp()">sign up</button>
-          <a onclick="toggleLogIn()">existing user?</a>
+          <div id="signup-button-container">
+            <button onclick="signUp()">sign up</button>
+          </div>
+          <div id="existing-user-container">
+            <a onclick="toggleLogIn()">existing user?</a>
+          </div>
         </div>
       </div>
     </section>

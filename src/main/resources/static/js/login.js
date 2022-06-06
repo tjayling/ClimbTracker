@@ -3,12 +3,14 @@
 function init() {}
 
 function toggleSignUp() {
+  document.title="sign up";
   document.getElementById("login-button").style.display = "none";
   document.getElementById("signup-button").style.display = "block";
   document.getElementById("signup-container").style.display = "block";
 }
 
 function toggleLogIn() {
+  document.title="log in";
   document.getElementById("signup-button").style.display = "none";
   document.getElementById("signup-container").style.display = "none";
   document.getElementById("login-button").style.display = "block";
