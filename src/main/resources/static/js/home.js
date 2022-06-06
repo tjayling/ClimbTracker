@@ -24,10 +24,10 @@ function logOut() {
 
 function testData() {
   let testRoutes = [
-    { grade: `v1` },
-    { grade: `v1` },
-    { grade: `v3` },
-    { grade: `v4` },
+    { name: `Booooring`, grade: `v1` },
+    { name: `The Techy One`, grade: `v2` },
+    { name: `Ow My Fingers`, grade: `v3` },
+    { name: `The Beast!`, grade: `v4` },
   ];
 
   let testClimbs = [
@@ -51,6 +51,8 @@ function testData() {
     },
   ];
 
+  console.log(JSON.stringify(testRoutes));
+
   fetch(`http://localhost:8080/route/createMany`, {
     method: `post`,
     headers: { "Content-type": "application/json" },
@@ -71,9 +73,9 @@ function testData() {
       console.error(`status: ${response.status}`);
       return;
     }
-    // response.json().then((data) => {
-    //   logIn();
-    // });
+    response.json().then((data) => {
+      readAll();
+    });
   });
 }
 
