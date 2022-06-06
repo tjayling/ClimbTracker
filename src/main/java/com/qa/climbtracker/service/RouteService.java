@@ -54,6 +54,9 @@ public class RouteService {
 		return this.repo.readId(id).stream().map(this::mapToDto).collect(Collectors.toList());
 	}
 	
+	public List<RouteDto> readName(String name) {
+		return this.repo.readName(name).stream().map(this::mapToDto).collect(Collectors.toList());	}
+	
 	public List<RouteDto> readGrade(String grade) {
 		return this.repo.readGrade(grade).stream().map(this::mapToDto).collect(Collectors.toList());
 	}

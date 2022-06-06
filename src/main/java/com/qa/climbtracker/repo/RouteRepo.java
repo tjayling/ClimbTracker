@@ -13,6 +13,9 @@ import com.qa.climbtracker.domain.dao.RouteDao;
 public interface RouteRepo extends JpaRepository<RouteDao, Long> {
 	@Query("SELECT route FROM RouteDao route WHERE route.id = ?1")
 	public List<RouteDao> readId(Long id);
+	
+	@Query("SELECT route FROM RouteDao route WHERE route.name = ?1")
+	public List<RouteDao> readName(String name);
 
 	@Query("SELECT route FROM RouteDao route WHERE route.grade = ?1")
 	public List<RouteDao> readGrade(String grade);
