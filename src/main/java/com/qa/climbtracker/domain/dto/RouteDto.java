@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class RouteDto {
 	private Long id;
+	private String name;
 	private String grade;
 	private List<ClimbDao> climbs;
 }

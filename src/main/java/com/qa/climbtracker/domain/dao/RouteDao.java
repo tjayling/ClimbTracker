@@ -21,6 +21,7 @@ public class RouteDao {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	private String name;
 	private String grade;
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "route")
 	@JsonBackReference
@@ -28,4 +29,5 @@ public class RouteDao {
 }
 
 // id
+// name 
 // grade

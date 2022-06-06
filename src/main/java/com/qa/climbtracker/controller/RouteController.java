@@ -28,9 +28,9 @@ public class RouteController {
 	private RouteService service;
 
 	@Autowired
-		public RouteController(RouteService service) {
-			this.service = service;
-		}
+	public RouteController(RouteService service) {
+		this.service = service;
+	}
 
 	@PostMapping("/create")
 	public ResponseEntity<RouteDto> create(@RequestBody RouteDao route) {
@@ -64,8 +64,14 @@ public class RouteController {
 		return new ResponseEntity<>(routes, HttpStatus.OK);
 	}
 
+	@GetMapping("/readBy/name:{name}")
+	public ResponseEntity<List<RouteDto>> readName(@PathVariable String name) {
+		List<RouteDto> routes = this.service.readName(name);
+		return new ResponseEntity<>(routes, HttpStatus.OK);
+	}
+
 	@GetMapping("/readBy/grade:{grade}")
-	public ResponseEntity<List<RouteDto>> readUserId(@PathVariable String grade) {
+	public ResponseEntity<List<RouteDto>> readGrade(@PathVariable String grade) {
 		List<RouteDto> routes = this.service.readGrade(grade);
 		return new ResponseEntity<>(routes, HttpStatus.OK);
 	}
