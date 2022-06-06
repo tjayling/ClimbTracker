@@ -22,25 +22,29 @@
       </div>
     </header>
     <section class="section-default">
-        <article>
-          <div id="read-climbs-table-container" class="div-default">
-            <table id="read-climbs-table">
+      <article>
+        <div id="read-climbs-table-container" class="div-default">
+          <table id="read-climbs-table">
+            <thead>
               <tr>
+                  <th>select</th>
                 <th>route</th>
                 <th>time taken</th>
                 <th>completed climb</th>
               </tr>
+            </thead>
+            <tbody id="climb-table-body">
               <tr>
                 <td>v3</td>
                 <td>12.0</td>
                 <td>yes</td>
               </tr>
-            </table>
-          </div>
-          <button onclick="testData()">populate table with test data</button>
-        </article>
-        <article></article>
-      </div>
+            </tbody>
+          </table>
+        </div>
+        <button onclick="testData()">populate table with test data</button>
+      </article>
+      <article></article>
     </section>
 
     <script src="../js/cookie.js"></script>

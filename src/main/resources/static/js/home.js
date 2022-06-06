@@ -11,6 +11,7 @@ function init() {
   document
     .getElementById(`username-header`)
     .appendChild(document.createTextNode(`you are logged in as ${username}`));
+  readAll();
 }
 
 function logOut() {
@@ -74,6 +75,84 @@ function testData() {
     //   logIn();
     // });
   });
+}
+
+function readAll() {
+  console.log("Read All");
+
+  fetch(`http://localhost:8080/climb/readAll`)
+    .then((response) => {
+      if (response.status !== 200) {
+        console.error(`status: ${response.status}`);
+        return;
+      }
+      response.json().then((data) => {
+        addListItems(data);
+        //   /*global*/ datalists = generateDatalists(data);
+        //   changeDatalist(activeDatalist);
+        //   showOrHideRead(data);
+      });
+    })
+    .catch((error) => console.error(`Request failed: ${error}`));
+}
+
+function addListItems(data) {
+  let newTableBody = document.createElement(`tbody`);
+  newTableBody.id = `climb-table-body`;
+
+  for (let i in data) {
+    let tableRow = document.createElement(`tr`);
+    tableRow.id = `row${data[i][`id`]}`;
+    let checkBox = document.createElement(`input`);
+    checkBox.type = `checkbox`;
+    checkBox.id = `climb-${data[i][`id`]}`;
+    checkBox.classList.add(`climb-checkbox`);
+    tableRow.appendChild(checkBox);
+    console.log(data[i]);
+    for (let d in data[i]) {
+      let append = true;
+      let tableData = document.createElement(`td`);
+      switch (d) {
+        case `id`:
+          append = false;
+          break;
+
+        case `user`:
+          append = false;
+          break;
+        case `route`:
+          tableData.appendChild(
+            document.createTextNode(`${data[i][d][`grade`]}`)
+          );
+          break;
+        case `timeTaken`:
+          tableData.appendChild(document.createTextNode(`${data[i][d]}`));
+          break;
+        case `completedClimb`:
+          let image = document.createElement(`img`);
+          let src = data[i][d] ? `../img/tick.png` : `../img/cross.png`;
+          image.src = src;
+          if (data[i][d]) {
+            console.log("Boolean");
+          }
+          //   tableData.appendChild(document.createTextNode(`${data[i][d]}`));
+          tableData.appendChild(image);
+          break;
+      }
+      if (append) {
+        tableRow.appendChild(tableData);
+      }
+
+      //   let tableData = document.createElement(`td`);
+      //   tableData.appendChild(document.createTextNode(`${data[i][d]}`));
+      //   tableRow.appendChild(tableData);
+    }
+
+    newTableBody.appendChild(tableRow);
+  }
+
+  let oldTableBody = document.getElementById(`climb-table-body`);
+  oldTableBody.parentNode.replaceChild(newTableBody, oldTableBody);
 }
 
 (function () {
