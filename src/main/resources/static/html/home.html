@@ -4,18 +4,44 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/home.css" />
+    <title>home</title>
   </head>
   <body>
-    <header style="display: flex">
-      <nav>
+    <header>
+      <nav class="left-buffer left-nav">
         <button onclick="logOut()">Log Out</button>
       </nav>
-      <div id="titleContainer">
+      <div class="title-container div-default">
         <h1>Welcome</h1>
         <h2 id="username-header"></h2>
       </div>
+      <div class="right-buffer right-nav">
+        <button onclick="logOut()">Log Out</button>
+      </div>
     </header>
+    <section class="section-default">
+        <article>
+          <div id="read-climbs-table-container" class="div-default">
+            <table id="read-climbs-table">
+              <tr>
+                <th>route</th>
+                <th>time taken</th>
+                <th>completed climb</th>
+              </tr>
+              <tr>
+                <td>v3</td>
+                <td>12.0</td>
+                <td>yes</td>
+              </tr>
+            </table>
+          </div>
+          <button onclick="testData()">populate table with test data</button>
+        </article>
+        <article></article>
+      </div>
+    </section>
 
     <script src="../js/cookie.js"></script>
     <script src="../js/home.js"></script>
