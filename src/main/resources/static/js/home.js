@@ -1,17 +1,40 @@
 "use strict";
 
 let id, username, firstName, lastName;
+let selectedClimbs = [];
+let allClimbs = [];
 
-function init() {
+async function init() {
   id = getCookie(`id`);
   username = getCookie(`username`);
   firstName = getCookie(`first-name`);
   lastName = getCookie(`last-name`);
-  console.log("Username " + username);
   document
     .getElementById(`username-header`)
     .appendChild(document.createTextNode(`you are logged in as ${username}`));
-  readAll();
+  await readAll();
+}
+
+function toggleDeleteAllButton() {
+  document.getElementById(`delete-all-button`).style.display =
+    allClimbs.length > 0 ? `block` : `none`;
+}
+
+function toggleDeleteSelectedButton() {
+  getSelectedClimbs();
+  document.getElementById(`delete-selected-button`).style.display =
+    selectedClimbs.length > 0 ? `block` : `none`;
+}
+
+function getSelectedClimbs() {
+  let checkboxes = document.getElementsByClassName(`climb-checkbox`);
+  // get a list of active boxes using filter method
+  let activeBoxes = [...checkboxes].filter((checkbox) => checkbox.checked);
+  // if there are active boxes, we return an array of IDs, otherwise an empty array
+  selectedClimbs =
+    activeBoxes.length > 0
+      ? activeBoxes.map((box) => box.id.split(`-`)[1])
+      : [];
 }
 
 function logOut() {
@@ -49,9 +72,13 @@ function testData() {
       timeTaken: `12`,
       completedClimb: `false`,
     },
+    {
+      user: { id: 1 },
+      route: { id: 4 },
+      timeTaken: `61`,
+      completedClimb: `true`,
+    },
   ];
-
-  console.log(JSON.stringify(testRoutes));
 
   fetch(`http://localhost:8080/route/createMany`, {
     method: `post`,
@@ -79,23 +106,40 @@ function testData() {
   });
 }
 
-function readAll() {
-  console.log("Read All");
+async function readAll() {
+  let response = await fetch(`http://localhost:8080/climb/readAll`);
+  if (response.status !== 200) console.error(`status: ${response.status}`);
+  let data = await response.json();
+  allClimbs = data;
+  addListItems(data);
+  toggleDeleteAllButton();
+  toggleDeleteSelectedButton();
+}
 
-  fetch(`http://localhost:8080/climb/readAll`)
-    .then((response) => {
-      if (response.status !== 200) {
-        console.error(`status: ${response.status}`);
-        return;
-      }
-      response.json().then((data) => {
-        addListItems(data);
-        //   /*global*/ datalists = generateDatalists(data);
-        //   changeDatalist(activeDatalist);
-        //   showOrHideRead(data);
-      });
-    })
-    .catch((error) => console.error(`Request failed: ${error}`));
+async function deleteAll() {
+  if (confirm(`Are you sure you want to delete all entries?`)) {
+    let ids = allClimbs.map((object) => object.id);
+    let response = await fetch(`http://localhost:8080/climb/delete/${ids}`, {
+      method: `delete`,
+    });
+    if (response.status !== 204) console.error(`status: ${response.status}`);
+    await readAll();
+  }
+}
+
+async function deleteSelected() {
+  let str = `Are you sure you want to delete entries ${selectedClimbs
+    .join(`, `)
+    .replace(/, ([^,]*)$/, " and $1")}`;
+  if (confirm(str)) {
+    let response = await fetch(
+      `http://localhost:8080/climb/delete/${selectedClimbs}`,
+      { method: `delete` }
+    );
+    if (response.status !== 204) console.error(`status: ${response.status}`);
+    await readAll();
+    toggleDeleteSelectedButton();
+  }
 }
 
 function addListItems(data) {
@@ -109,8 +153,8 @@ function addListItems(data) {
     checkBox.type = `checkbox`;
     checkBox.id = `climb-${data[i][`id`]}`;
     checkBox.classList.add(`climb-checkbox`);
+    checkBox.addEventListener("change", () => toggleDeleteSelectedButton());
     tableRow.appendChild(checkBox);
-    console.log(data[i]);
     for (let d in data[i]) {
       let append = true;
       let tableData = document.createElement(`td`);
@@ -118,13 +162,14 @@ function addListItems(data) {
         case `id`:
           append = false;
           break;
-
         case `user`:
           append = false;
           break;
         case `route`:
           tableData.appendChild(
-            document.createTextNode(`${data[i][d][`grade`]}`)
+            document.createTextNode(
+              `${data[i][d][`name`]} (${data[i][d][`grade`]})`
+            )
           );
           break;
         case `timeTaken`:
@@ -134,22 +179,11 @@ function addListItems(data) {
           let image = document.createElement(`img`);
           let src = data[i][d] ? `../img/tick.png` : `../img/cross.png`;
           image.src = src;
-          if (data[i][d]) {
-            console.log("Boolean");
-          }
-          //   tableData.appendChild(document.createTextNode(`${data[i][d]}`));
           tableData.appendChild(image);
           break;
       }
-      if (append) {
-        tableRow.appendChild(tableData);
-      }
-
-      //   let tableData = document.createElement(`td`);
-      //   tableData.appendChild(document.createTextNode(`${data[i][d]}`));
-      //   tableRow.appendChild(tableData);
+      if (append) tableRow.appendChild(tableData);
     }
-
     newTableBody.appendChild(tableRow);
   }
 

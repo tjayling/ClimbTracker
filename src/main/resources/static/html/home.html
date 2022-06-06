@@ -27,9 +27,9 @@
           <table id="read-climbs-table">
             <thead>
               <tr>
-                  <th>select</th>
-                <th>route</th>
-                <th>time taken</th>
+                <th>select</th>
+                <th>route<br />name (grade)</th>
+                <th>time taken<br />(seconds)</th>
                 <th>completed climb</th>
               </tr>
             </thead>
@@ -43,6 +43,12 @@
           </table>
         </div>
         <button onclick="testData()">populate table with test data</button>
+        <button onclick="deleteSelected()" id="delete-selected-button" style="display: none">
+            delete selected entries
+          </button>
+        <button onclick="deleteAll()" id="delete-all-button" style="display: none">
+          delete all entries
+        </button>
       </article>
       <article></article>
     </section>
