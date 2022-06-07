@@ -1,11 +1,11 @@
 "use strict";
 
-let id, username, firstName, lastName;
+let userId, username, firstName, lastName;
 let selectedClimbs = [];
 let allClimbs = [];
 
 async function init() {
-  id = getCookie(`id`);
+  userId = getCookie(`id`);
   username = getCookie(`username`);
   firstName = getCookie(`first-name`);
   lastName = getCookie(`last-name`);
@@ -13,6 +13,7 @@ async function init() {
     .getElementById(`username-header`)
     .appendChild(document.createTextNode(`you are logged in as ${username}`));
   await readAll();
+  await readAllRoutes();
 }
 
 function toggleDeleteAllButton() {
@@ -23,7 +24,81 @@ function toggleDeleteAllButton() {
 function toggleDeleteSelectedButton() {
   getSelectedClimbs();
   document.getElementById(`delete-selected-button`).style.display =
-    selectedClimbs.length > 0 ? `block` : `none`;
+    selectedClimbs.length > 0 ? `flex` : `none`;
+}
+
+function clearInput() {
+  document.getElementById("route-options-input").value = ``;
+}
+
+async function checkInputs() {
+  let route = document.getElementById(`route-options-input`).value;
+  let timeTaken = parseInt(document.getElementById(`time-input`).value);
+  let attempts = parseInt(document.getElementById(`attempts-input`).value);
+  let tryAgain = false;
+  let nanError = `please enter a number`;
+  // route will be falsey if the user hasn't selected a route
+  tryAgain = route
+    ? removeError(`route`)
+    : appendError(`route`, `please select a route`);
+  // time taken will be falsey if user doesn't input an integer
+  tryAgain = timeTaken ? removeError(`time`) : appendError(`time`, nanError);
+  // attempts will be falsey if user doesn't input an integer
+  tryAgain = attempts
+    ? removeError(`attempts`)
+    : appendError(`attempts`, nanError);
+
+  function appendError(divId, error) {
+    let div = document.getElementById(`${divId}-error`);
+    let p = document
+      .createElement(`p`)
+      .appendChild(document.createTextNode(error));
+    div.hasChildNodes()
+      ? div.replaceChild(p, div.firstChild)
+      : div.appendChild(p);
+    return true;
+  }
+
+  function removeError(divId) {
+    document.getElementById(`${divId}-error`).innerHTML = ``;
+    return false;
+  }
+
+  if (tryAgain) return;
+
+  let routeId = route.split(`:`)[0];
+
+  await createClimb(routeId, timeTaken, attempts);
+  await readAll();
+}
+
+async function createClimb(routeId, timeTaken, attempts) {
+  let response = await fetch(`http://localhost:8080/climb/create`, {
+    method: `post`,
+    headers: { "Content-type": "application/json" },
+    body: JSON.stringify({
+      user: { id: userId },
+      route: { id: routeId },
+      timeTaken: timeTaken,
+      completedClimb: true,
+    }),
+  });
+  if (response.status !== 201) console.error(response.status);
+}
+
+function generateRoutesDatalist(data) {
+  let routeDatalist = document.createElement(`datalist`);
+  routeDatalist.id = `route-options`;
+  let routeStrings = data.map(
+    (route) => `${route.id}: ${route.name} (${route.grade})`
+  );
+  for (let str of routeStrings) {
+    let routeOption = document.createElement(`option`);
+    routeOption.value = str;
+    routeOption.appendChild(document.createTextNode(str));
+    routeDatalist.appendChild(routeOption);
+  }
+  document.getElementById(`route-options`).replaceWith(routeDatalist);
 }
 
 function getSelectedClimbs() {
@@ -45,7 +120,7 @@ function logOut() {
   window.location.href = "./login.html";
 }
 
-function testData() {
+async function testData() {
   let testRoutes = [
     { name: `Booooring`, grade: `v1` },
     { name: `The Techy One`, grade: `v2` },
@@ -80,30 +155,27 @@ function testData() {
     },
   ];
 
-  fetch(`http://localhost:8080/route/createMany`, {
+  let routeResponse = await fetch(`http://localhost:8080/route/createMany`, {
     method: `post`,
     headers: { "Content-type": "application/json" },
     body: JSON.stringify(testRoutes),
-  }).then((response) => {
-    if (response.status !== 201) {
-      console.error(`status: ${response.status}`);
-      return;
-    }
   });
+  if (routeResponse.status !== 201)
+    console.error(`status: ${routeResponse.status}`);
 
-  fetch(`http://localhost:8080/climb/createMany`, {
+  let climbResponse = await fetch(`http://localhost:8080/climb/createMany`, {
     method: `post`,
     headers: { "Content-type": "application/json" },
     body: JSON.stringify(testClimbs),
-  }).then((response) => {
-    if (response.status !== 201) {
-      console.error(`status: ${response.status}`);
-      return;
-    }
-    response.json().then((data) => {
-      readAll();
-    });
   });
+
+  if (climbResponse.status !== 201) console.error(`status: ${response.status}`);
+
+  await routeResponse.json();
+  await climbResponse.json();
+
+  readAll();
+  readAllRoutes();
 }
 
 async function readAll() {
@@ -114,6 +186,13 @@ async function readAll() {
   addListItems(data);
   toggleDeleteAllButton();
   toggleDeleteSelectedButton();
+}
+
+async function readAllRoutes() {
+  let response = await fetch(`http://localhost:8080/route/readAll`);
+  if (response.status !== 200) console.error(`status: ${response.status}`);
+  let data = await response.json();
+  generateRoutesDatalist(data);
 }
 
 async function deleteAll() {

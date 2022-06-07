@@ -33,24 +33,36 @@
                 <th>completed climb</th>
               </tr>
             </thead>
-            <tbody id="climb-table-body">
-              <tr>
-                <td>v3</td>
-                <td>12.0</td>
-                <td>yes</td>
-              </tr>
-            </tbody>
+            <tbody id="climb-table-body"></tbody>
           </table>
         </div>
-        <button onclick="testData()">populate table with test data</button>
-        <button onclick="deleteSelected()" id="delete-selected-button" style="display: none">
+        <div id="create-climb-container" class="div">
+            <p>log a new climb:</p>
+          <input
+            list="route-options"
+            id="route-options-input"
+            class="text-input"
+            placeholder="route..."
+            onclick="clearInput()"
+          />
+          <datalist id="route-options"></datalist><br />
+          <div id="route-error" class="error"></div>
+          <input type="text" id="time-input" placeholder="time taken" /><br />
+          <div id="time-error" class="error"></div>
+          <input type="text" id="attempts-input" placeholder="attempts" /><br />
+          <div id="attempts-error" class="error"></div>
+          <button onclick="checkInputs()">log climb</button>
+        </div>
+        <div id="button-container">
+          <button onclick="deleteSelected()" id="delete-selected-button" class="btn">
             delete selected entries
           </button>
-        <button onclick="deleteAll()" id="delete-all-button" style="display: none">
-          delete all entries
-        </button>
+          <button onclick="deleteAll()" id="delete-all-button" class="btn">
+            delete all entries
+          </button>
+          <button onclick="testData()">populate table with test data</button>
+        </div>
       </article>
-      <article></article>
     </section>
 
     <script src="../js/cookie.js"></script>
