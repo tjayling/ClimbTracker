@@ -29,7 +29,7 @@ public class ClimbDao {
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	private RouteDao route;
 	private Integer timeTaken;
-	private Boolean completedClimb;
+	private Integer attempts;
 }
 
 // id

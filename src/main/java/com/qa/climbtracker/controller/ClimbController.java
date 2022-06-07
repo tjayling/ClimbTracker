@@ -33,8 +33,6 @@ public class ClimbController {
 	
 	@PostMapping("/create")
 	public ResponseEntity<ClimbDto> create(@RequestBody ClimbDao climb) {
-		System.out.println("////////////////////////////////////////////////");
-		System.out.println(climb);
 		return new ResponseEntity<>(this.service.create(climb), HttpStatus.CREATED);
 	}
 	
@@ -77,9 +75,9 @@ public class ClimbController {
 		return new ResponseEntity<>(climbs, HttpStatus.OK);
 	}
 	
-	@GetMapping("/readBy/user_id:{userId}/route_completed:{completed}")
-	public ResponseEntity<List<ClimbDto>> readCompleted(@PathVariable Long userId, @PathVariable Boolean completed) {
-		List<ClimbDto> climbs = this.service.readCompleted(userId, completed);
+	@GetMapping("/readBy/user_id:{userId}/attempts:{attempts}")
+	public ResponseEntity<List<ClimbDto>> readCompleted(@PathVariable Long userId, @PathVariable Integer attempts) {
+		List<ClimbDto> climbs = this.service.readAttempts(userId, attempts);
 		return new ResponseEntity<>(climbs, HttpStatus.OK);
 	}
 	
@@ -87,5 +85,5 @@ public class ClimbController {
 	//route id
 	//time taken
 	//data climbed
-	//completed climb
-}
+	//attempts
+	}
