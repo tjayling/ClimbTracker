@@ -1,0 +1,51 @@
+h1 {
+  padding: 0;
+  margin: 15px 0 0 0;
+}
+#read-climbs-table-container {
+  border: solid 2px;
+  text-align: center;
+  padding: 10px;
+  /* width: 250px; */
+  height: 300px;
+  overflow: auto;
+  border-radius: 5px;
+  margin-bottom: 5px;
+  padding: 0;
+}
+
+body {
+  background-color: var(--background);
+}
+
+button {
+  font-size: 15px;
+  margin: 10px;
+}
+
+table {
+  font-family: "Cutive Mono", monospace;
+}
+
+th {
+  position: sticky;
+  top: 0;
+  left: 0;
+  margin: 0;
+  background-color: #ced1d2; /* --div-background but with no alpha */
+}
+
+#create-climb-container {
+  justify-content: center;
+  align-items: center;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#button-container {
+  justify-content: center;
+  align-items: center;
+  width: fit-content;
+  margin: 5px auto 0 auto;
+}

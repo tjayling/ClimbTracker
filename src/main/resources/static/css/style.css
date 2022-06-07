@@ -1,0 +1,133 @@
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
+
+:root {
+  --background: #43596b;
+  --div-background: #ced1d2dd;
+  --input-background: #96a9bdba;
+  --input-background-darker: #7690a2ba;
+  --input-background-darkest: #7690a2ff;
+  --input-foreground: #0e233c;
+}
+
+header {
+  font-family: "Bebas Neue", cursive;
+  font-weight: bolder;
+  display: flex;
+}
+
+.left-buffer {
+  width: 25%;
+}
+
+.title-container {
+  width: 50%;
+  padding: 0 25px;
+}
+
+h1 {
+  padding: -50px 25px;
+  text-align: center;
+  font-weight: 100;
+  font-size: 350%;
+}
+
+.right-buffer {
+  width: 25%;
+  text-align: right;
+}
+
+.section-default {
+  display: flex;
+  justify-content: center;
+  margin: 25px;
+}
+
+p {
+  font-family: "Cutive Mono", monospace;
+  font-weight: bold;
+}
+
+.div-default {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  background-color: var(--div-background);
+  border-radius: 20px;
+}
+
+article {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+input {
+  text-align: center;
+  margin: 0 10px 10px 0;
+  padding: 5px;
+  border-radius: 5px;
+  border-style: none;
+  background-color: var(--input-background);
+}
+
+input::placeholder {
+  font-family: "Cutive Mono", monospace;
+  font-weight: 550;
+  font-size: 17px;
+  color: var(--input-foreground);
+}
+
+input:valid {
+  font-family: "Cutive Mono", monospace;
+  font-weight: 550;
+  font-size: 17px;
+  color: var(--input-foreground);
+}
+
+button {
+  background-color: var(--input-background-darker);
+  margin: 0 10px 10px 0;
+  border-radius: 5px;
+  border-style: none;
+  font-family: "Cutive Mono", monospace;
+  font-weight: 550;
+  padding: 7px 10px 10px 10px;
+  color: var(--input-foreground);
+  transition: all 0.2s ease-in-out;
+}
+
+button:hover {
+  transform: scale(1.05);
+  border-radius: 7px;
+  background-color: var(--input-background-darkest);
+}
+
+a {
+  color: var(--input-foreground);
+  font-family: "Cutive Mono", monospace;
+  font-weight: bold;
+}
+
+a:hover {
+  cursor: pointer;
+}
+
+.warning-img {
+  position: absolute;
+}
+
+.error {
+  display: none;
+  font-family: "Cutive Mono", monospace;
+  font-weight: 700;
+  margin: -5px 0 5px 0;
+  padding: 2px 5px 5px 5px;
+  border-radius: 5px;
+  color: crimson;
+  background-color: var(--input-background-darker);
+}
+
+.error > p {
+  margin-left: 25px;
+  display: inline;
+}
