@@ -3,35 +3,50 @@
 function init() {}
 
 function toggleSignUp() {
-  document.title="sign up";
+  document.title = "sign up";
   document.getElementById("login-button").style.display = "none";
   document.getElementById("signup-button").style.display = "block";
   document.getElementById("signup-container").style.display = "block";
 }
 
 function toggleLogIn() {
-  document.title="log in";
+  document.title = "log in";
   document.getElementById("signup-button").style.display = "none";
   document.getElementById("signup-container").style.display = "none";
   document.getElementById("login-button").style.display = "block";
 }
 
-function logIn() {
+async function logIn() {
   let username = document.getElementById(`username-input`).value;
   let password = document.getElementById(`password-input`).value;
-  fetch(`http://localhost:8080/user/readBy/username:${username}`).then(
-    (response) => {
-      if (response.status !== 200) {
-        console.error(`status: ${response.status}`);
-        return;
-      }
-      response.json().then((data) => {
-        data[0][`password`] === password
-          ? initSession(data[0])
-          : passwordIncorrect();
-      });
-    }
+  let tryAgain = false;
+  tryAgain = username ? false : appendError(`please enter a username`);
+  if (tryAgain) return;
+  tryAgain = password ? false : appendError(`please enter a password`);
+  if (tryAgain) return;
+  let response = await fetch(
+    `http://localhost:8080/user/readBy/username:${username}`
   );
+
+  if (response.status !== 200) console.error(`status: ${response.status}`);
+  let data = await response.json();
+  console.log(data.length);
+  tryAgain = data.length == 0 ? appendError(`incorrect username`) : false;
+  if (tryAgain) return;
+  data[0][`password`] === password
+    ? initSession(data[0])
+    : appendError(`incorrect password`);
+}
+
+function appendError(error) {
+  let div = document.getElementById(`error-div`);
+  let p = document
+    .createElement(`p`)
+    .appendChild(document.createTextNode(error));
+  div.hasChildNodes()
+    ? div.replaceChild(p, div.firstChild)
+    : div.appendChild(p);
+  return true;
 }
 
 function signUp() {
@@ -66,6 +81,7 @@ function initSession(data) {
   setCookie(`first-name`, data[`firstName`], 7);
   setCookie(`last-name`, data[`lastName`], 7);
   window.location.href = "./home.html";
+  return false;
 }
 
 (function () {
