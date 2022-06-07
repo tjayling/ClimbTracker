@@ -1,0 +1,122 @@
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
+
+:root {
+  --background: #43596b;
+  --div-background: #ced1d2dd;
+  --input-background: #96a9bdba;
+  --input-background-darker: #7690a2ba;
+  --input-background-darkest: #7690a2ff;
+  --input-foreground: #0e233c;
+}
+
+
+body {
+  background-color: var(--background);
+}
+
+header {
+  font-family: "Bebas Neue", cursive;
+  font-weight: bolder;
+  display: flex;
+}
+
+.section-default {
+  display: flex;
+  justify-content: center;
+  margin: 25px;
+}
+
+.left-buffer {
+  width: 25%;
+}
+
+.title-container {
+  width: 50%;
+  padding: 0 25px;
+}
+
+h1 {
+  padding: -50px 25px;
+  text-align: center;
+  font-weight: 100;
+  font-size: 350%;
+}
+
+p {
+  font-family: "Cutive Mono", monospace;
+  font-weight: bold;
+}
+
+.right-buffer {
+  width: 25%;
+  text-align: right;
+}
+
+#login-form {
+  display: flex;
+  justify-content: center;
+  margin: 50px;
+}
+
+.div-default {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  background-color: var(--div-background);
+  /* padding: 50px; */
+  border-radius: 20px;
+}
+#login-form-container {
+  padding: 50px;
+}
+
+input {
+  text-align: center;
+  margin: 0 10px 10px 0;
+  padding: 5px;
+  border-radius: 5px;
+  border-style: none;
+  background-color: var(--input-background);
+}
+
+input::placeholder {
+  font-family: "Cutive Mono", monospace;
+  font-weight: 550;
+  font-size: 17px;
+  color: var(--input-foreground);
+}
+
+input:valid {
+  font-family: "Cutive Mono", monospace;
+  font-weight: 550;
+  font-size: 17px;
+  color: var(--input-foreground);
+}
+
+button {
+  background-color: var(--input-background-darker);
+  margin: 0 10px 10px 0;
+  border-radius: 5px;
+  border-style: none;
+  font-family: "Cutive Mono", monospace;
+  font-weight: 550;
+  padding: 7px 10px 10px 10px;
+  color: var(--input-foreground);
+  transition: all 0.2s ease-in-out;
+}
+
+button:hover {
+  transform: scale(1.05);
+  border-radius: 7px;
+  background-color: var(--input-background-darkest);
+}
+
+a {
+  color: var(--input-foreground);
+  font-family: "Cutive Mono", monospace;
+  font-weight: bold;
+}
+
+a:hover {
+  cursor: pointer;
+}
