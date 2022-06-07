@@ -36,8 +36,22 @@
             <tbody id="climb-table-body"></tbody>
           </table>
         </div>
-        <div id="create-climb-container" class="div">
-            <p>log a new climb:</p>
+        <div id="button-container" class="div-default">
+          <button
+            onclick="deleteSelected()"
+            id="delete-selected-button"
+            class="btn"
+          >
+            delete selected entries
+          </button>
+          <button onclick="deleteAll()" id="delete-all-button" class="btn">
+            delete all entries
+          </button>
+          <button onclick="testData()">populate table with test data</button>
+        </div>
+        <div id="create-climb-container">
+          <p>log a new climb:</p>
+          <div id="route-error" class="error"></div>
           <input
             list="route-options"
             id="route-options-input"
@@ -46,26 +60,17 @@
             onclick="clearInput()"
           />
           <datalist id="route-options"></datalist><br />
-          <div id="route-error" class="error"></div>
-          <input type="text" id="time-input" placeholder="time taken" /><br />
           <div id="time-error" class="error"></div>
-          <input type="text" id="attempts-input" placeholder="attempts" /><br />
+          <input type="text" id="time-input" placeholder="time taken" /><br />
           <div id="attempts-error" class="error"></div>
+          <input type="text" id="attempts-input" placeholder="attempts" /><br />
           <button onclick="checkInputs()">log climb</button>
-        </div>
-        <div id="button-container">
-          <button onclick="deleteSelected()" id="delete-selected-button" class="btn">
-            delete selected entries
-          </button>
-          <button onclick="deleteAll()" id="delete-all-button" class="btn">
-            delete all entries
-          </button>
-          <button onclick="testData()">populate table with test data</button>
         </div>
       </article>
     </section>
 
     <script src="../js/cookie.js"></script>
+    <script src="../js/error.js"></script>
     <script src="../js/home.js"></script>
   </body>
 </html>

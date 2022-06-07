@@ -9,6 +9,7 @@ function setCookie(name, value, days) {
   }
   document.cookie = name + "=" + value + ";" + expires + ";path=/";
 }
+
 function getCookie(name) {
   const cookiesJson = {};
   let cookies = document.cookie
@@ -19,6 +20,7 @@ function getCookie(name) {
     .forEach(([key, value]) => (cookiesJson[key] = value));
   return cookiesJson[name];
 }
+
 function deleteCookie(name) {
   document.cookie = name + "=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;";
 }

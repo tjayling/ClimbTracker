@@ -1,6 +1,6 @@
 "use strict";
 
-function init() {}
+function initLogin() {}
 
 function toggleSignUp() {
   document.title = "sign up";
@@ -19,11 +19,18 @@ function toggleLogIn() {
 async function logIn() {
   let username = document.getElementById(`username-input`).value;
   let password = document.getElementById(`password-input`).value;
-  let tryAgain = false;
-  tryAgain = username ? false : appendError(`please enter a username`);
+
+  // check for any empty inputs
+  let tryAgain = username
+    ? removeError(`username`)
+    : appendError(`username`, `please enter a username`);
+  if (!tryAgain)
+    tryAgain = password
+      ? removeError(`password`)
+      : appendError(`password`, `please enter a password`);
+  // if there were any missing inputs, break of out the function to prevent fetch errors
   if (tryAgain) return;
-  tryAgain = password ? false : appendError(`please enter a password`);
-  if (tryAgain) return;
+
   let response = await fetch(
     `http://localhost:8080/user/readBy/username:${username}`
   );
@@ -31,31 +38,46 @@ async function logIn() {
   if (response.status !== 200) console.error(`status: ${response.status}`);
   let data = await response.json();
   console.log(data.length);
-  tryAgain = data.length == 0 ? appendError(`incorrect username`) : false;
+  tryAgain =
+    data.length > 0
+      ? removeError(`username`)
+      : appendError(`username`, `incorrect username`);
   if (tryAgain) return;
   data[0][`password`] === password
     ? initSession(data[0])
-    : appendError(`incorrect password`);
+    : appendError(`password`, `incorrect password`);
 }
 
-function appendError(error) {
-  let div = document.getElementById(`error-div`);
-  let p = document
-    .createElement(`p`)
-    .appendChild(document.createTextNode(error));
-  div.hasChildNodes()
-    ? div.replaceChild(p, div.firstChild)
-    : div.appendChild(p);
-  return true;
-}
-
-function signUp() {
+async function signUp() {
   let firstName = document.getElementById(`first-name-input`).value;
   let lastName = document.getElementById(`last-name-input`).value;
   let username = document.getElementById(`username-input`).value;
   let password = document.getElementById(`password-input`).value;
 
-  fetch(`http://localhost:8080/user/create`, {
+  // check for any empty inputs - variables will be falsey if left empty
+  let tryAgain = firstName
+    ? removeError(`first-name`) /* returns false */
+    : appendError(
+        `first-name`,
+        `please enter your first name`
+      ); /* returns true */
+  if (!tryAgain)
+    tryAgain = lastName
+      ? removeError(`last-name`)
+      : appendError(`last-name`, `please enter your last name`);
+  if (!tryAgain)
+    tryAgain = username
+      ? removeError(`username`)
+      : appendError(`username`, `please enter a username`);
+  if (!tryAgain)
+    tryAgain = password
+      ? removeError(`password`)
+      : appendError(`password`, `please enter a password`);
+  // if there were any missing inputs, break of out the function to prevent fetch errors
+  if (tryAgain) return;
+
+  // fetch data
+  let response = await fetch(`http://localhost:8080/user/create`, {
     method: `post`,
     headers: { "Content-type": "application/json" },
     body: JSON.stringify({
@@ -64,15 +86,10 @@ function signUp() {
       username: username,
       password: password,
     }),
-  }).then((response) => {
-    if (response.status !== 201) {
-      console.error(`status: ${response.status}`);
-      return;
-    }
-    response.json().then((data) => {
-      logIn();
-    });
   });
+  if (response.status !== 201) console.error(`status: ${response.status}`);
+  await response.json();
+  logIn();
 }
 
 function initSession(data) {
@@ -85,5 +102,5 @@ function initSession(data) {
 }
 
 (function () {
-  document.addEventListener("DOMContentLoaded", init);
+  document.addEventListener("DOMContentLoaded", initLogin);
 })();
