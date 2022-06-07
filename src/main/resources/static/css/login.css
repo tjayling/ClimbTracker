@@ -1,14 +1,4 @@
-:root {
-  --background: #43596b;
-  --div-background: #ced1d2dd;
-  --input-background: #96a9bdba;
-  --input-background-darker: #7690a2ba;
-  --input-background-darkest: #7690a2ff;
-  --input-foreground: #0e233c;
-}
-
 body {
-  /* background-color: var(--background); */
   background-image: url(../img/header-bg.jpg);
   background-repeat: no-repeat;
   background-size: cover;
@@ -25,4 +15,14 @@ header {
 
 button {
   font-size: 20px;
+}
+
+#login-form {
+  display: flex;
+  justify-content: center;
+  margin: 50px;
+}
+
+#login-form-container {
+  padding: 50px;
 }

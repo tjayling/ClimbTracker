@@ -9,21 +9,10 @@
   --input-foreground: #0e233c;
 }
 
-
-body {
-  background-color: var(--background);
-}
-
 header {
   font-family: "Bebas Neue", cursive;
   font-weight: bolder;
   display: flex;
-}
-
-.section-default {
-  display: flex;
-  justify-content: center;
-  margin: 25px;
 }
 
 .left-buffer {
@@ -42,20 +31,20 @@ h1 {
   font-size: 350%;
 }
 
-p {
-  font-family: "Cutive Mono", monospace;
-  font-weight: bold;
-}
-
 .right-buffer {
   width: 25%;
   text-align: right;
 }
 
-#login-form {
+.section-default {
   display: flex;
   justify-content: center;
-  margin: 50px;
+  margin: 25px;
+}
+
+p {
+  font-family: "Cutive Mono", monospace;
+  font-weight: bold;
 }
 
 .div-default {
@@ -63,11 +52,13 @@ p {
   flex-direction: column;
   text-align: center;
   background-color: var(--div-background);
-  /* padding: 50px; */
   border-radius: 20px;
 }
-#login-form-container {
-  padding: 50px;
+
+article {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 }
 
 input {
@@ -119,4 +110,24 @@ a {
 
 a:hover {
   cursor: pointer;
+}
+
+.warning-img {
+  position: absolute;
+}
+
+.error {
+  display: none;
+  font-family: "Cutive Mono", monospace;
+  font-weight: 700;
+  margin: -5px 0 5px 0;
+  padding: 2px 5px 5px 5px;
+  border-radius: 5px;
+  color: crimson;
+  background-color: var(--input-background-darker);
+}
+
+.error > p {
+  margin-left: 25px;
+  display: inline;
 }
