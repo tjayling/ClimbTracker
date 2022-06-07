@@ -4,7 +4,7 @@ let userId, username, firstName, lastName;
 let selectedClimbs = [];
 let allClimbs = [];
 
-async function init() {
+async function initHome() {
   userId = getCookie(`id`);
   username = getCookie(`username`);
   firstName = getCookie(`first-name`);
@@ -24,7 +24,7 @@ function toggleDeleteAllButton() {
 function toggleDeleteSelectedButton() {
   getSelectedClimbs();
   document.getElementById(`delete-selected-button`).style.display =
-    selectedClimbs.length > 0 ? `flex` : `none`;
+    selectedClimbs.length > 0 ? `block` : `none`;
 }
 
 function clearInput() {
@@ -35,34 +35,19 @@ async function checkInputs() {
   let route = document.getElementById(`route-options-input`).value;
   let timeTaken = parseInt(document.getElementById(`time-input`).value);
   let attempts = parseInt(document.getElementById(`attempts-input`).value);
-  let tryAgain = false;
   let nanError = `please enter a number`;
   // route will be falsey if the user hasn't selected a route
-  tryAgain = route
+  let tryAgain = route
     ? removeError(`route`)
     : appendError(`route`, `please select a route`);
   // time taken will be falsey if user doesn't input an integer
-  tryAgain = timeTaken ? removeError(`time`) : appendError(`time`, nanError);
+  if (!tryAgain)
+    tryAgain = timeTaken ? removeError(`time`) : appendError(`time`, nanError);
   // attempts will be falsey if user doesn't input an integer
-  tryAgain = attempts
-    ? removeError(`attempts`)
-    : appendError(`attempts`, nanError);
-
-  function appendError(divId, error) {
-    let div = document.getElementById(`${divId}-error`);
-    let p = document
-      .createElement(`p`)
-      .appendChild(document.createTextNode(error));
-    div.hasChildNodes()
-      ? div.replaceChild(p, div.firstChild)
-      : div.appendChild(p);
-    return true;
-  }
-
-  function removeError(divId) {
-    document.getElementById(`${divId}-error`).innerHTML = ``;
-    return false;
-  }
+  if (!tryAgain)
+    tryAgain = attempts
+      ? removeError(`attempts`)
+      : appendError(`attempts`, nanError);
 
   if (tryAgain) return;
 
@@ -271,5 +256,5 @@ function addListItems(data) {
 }
 
 (function () {
-  document.addEventListener("DOMContentLoaded", init);
+  document.addEventListener("DOMContentLoaded", initHome);
 })();
