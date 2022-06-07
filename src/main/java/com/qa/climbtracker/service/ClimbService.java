@@ -41,7 +41,7 @@ public class ClimbService {
 	public ClimbDto update(ClimbDao newClimb) {
 		ClimbDao climb = this.repo.findById(newClimb.getId()).get();
 		climb.setTimeTaken(newClimb.getTimeTaken());
-		climb.setCompletedClimb(newClimb.getCompletedClimb());
+		climb.setAttempts(newClimb.getAttempts());
 
 		return this.mapToDto(this.repo.save(climb));
 	}
@@ -64,8 +64,8 @@ public class ClimbService {
 		return this.repo.readRouteId(userId, routeId).stream().map(this::mapToDto).collect(Collectors.toList());
 	}
 	
-	public List<ClimbDto> readCompleted(Long userId, Boolean completed) {
-		return this.repo.readCompleted(userId, completed).stream().map(this::mapToDto).collect(Collectors.toList());
+	public List<ClimbDto> readAttempts(Long userId, Integer attempts) {
+		return this.repo.readAttempts(userId, attempts).stream().map(this::mapToDto).collect(Collectors.toList());
 	}
 }
 

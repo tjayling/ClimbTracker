@@ -30,25 +30,22 @@
                 <th>select</th>
                 <th>route<br />name (grade)</th>
                 <th>time taken<br />(seconds)</th>
-                <th>completed climb</th>
+                <th>attempts</th>
               </tr>
             </thead>
             <tbody id="climb-table-body"></tbody>
           </table>
         </div>
         <div id="button-container" class="div-default">
-          <button
-            onclick="deleteSelected()"
-            id="delete-selected-button"
-            class="btn"
-          >
+          <button onclick="testData()">populate table with test data</button>
+          <button onclick="deleteSelected()" id="delete-selected-button">
             delete selected entries
           </button>
-          <button onclick="deleteAll()" id="delete-all-button" class="btn">
+          <button onclick="deleteAll()" id="delete-all-button">
             delete all entries
           </button>
-          <button onclick="testData()">populate table with test data</button>
         </div>
+        <!-- CREATE CLIMB CONTAINER -->
         <div id="create-climb-container">
           <p>log a new climb:</p>
           <div id="route-error" class="error"></div>

@@ -10,10 +10,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ClimbDto {
 	private Long id;
-	private UserDao user;
 	private RouteDao route;
 	private Integer timeTaken;
-	private Boolean completedClimb;
+	private Integer attempts;
 }
 
 // id

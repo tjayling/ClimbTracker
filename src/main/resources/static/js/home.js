@@ -65,7 +65,7 @@ async function createClimb(routeId, timeTaken, attempts) {
       user: { id: userId },
       route: { id: routeId },
       timeTaken: timeTaken,
-      completedClimb: true,
+      attempts: attempts,
     }),
   });
   if (response.status !== 201) console.error(response.status);
@@ -118,25 +118,25 @@ async function testData() {
       user: { id: 1 },
       route: { id: 1 },
       timeTaken: `31`,
-      completedClimb: `true`,
+      attempts: 1,
     },
     {
       user: { id: 1 },
       route: { id: 3 },
       timeTaken: `45`,
-      completedClimb: `true`,
+      attempts: 3,
     },
     {
       user: { id: 1 },
       route: { id: 2 },
       timeTaken: `12`,
-      completedClimb: `false`,
+      attempts: 9,
     },
     {
       user: { id: 1 },
       route: { id: 4 },
       timeTaken: `61`,
-      completedClimb: `true`,
+      attempts: 4,
     },
   ];
 
@@ -220,33 +220,22 @@ function addListItems(data) {
     checkBox.addEventListener("change", () => toggleDeleteSelectedButton());
     tableRow.appendChild(checkBox);
     for (let d in data[i]) {
-      let append = true;
       let tableData = document.createElement(`td`);
       switch (d) {
-        case `id`:
-          append = false;
-          break;
-        case `user`:
-          append = false;
-          break;
         case `route`:
           tableData.appendChild(
             document.createTextNode(
               `${data[i][d][`name`]} (${data[i][d][`grade`]})`
             )
           );
+          tableRow.appendChild(tableData);
           break;
         case `timeTaken`:
+        case `attempts`:
           tableData.appendChild(document.createTextNode(`${data[i][d]}`));
-          break;
-        case `completedClimb`:
-          let image = document.createElement(`img`);
-          let src = data[i][d] ? `../img/tick.png` : `../img/cross.png`;
-          image.src = src;
-          tableData.appendChild(image);
+          tableRow.appendChild(tableData);
           break;
       }
-      if (append) tableRow.appendChild(tableData);
     }
     newTableBody.appendChild(tableRow);
   }
