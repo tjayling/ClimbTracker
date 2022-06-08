@@ -3,6 +3,7 @@ package com.qa.climbtracker.service;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -12,10 +13,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
 
-import com.qa.climbtracker.domain.dao.ClimbDao;
-import com.qa.climbtracker.domain.dao.RouteDao;
-import com.qa.climbtracker.domain.dao.UserDao;
 import com.qa.climbtracker.domain.dto.ClimbDto;
+import com.qa.climbtracker.domain.model.Climb;
+import com.qa.climbtracker.domain.model.Route;
+import com.qa.climbtracker.domain.model.User;
 import com.qa.climbtracker.repo.ClimbRepo;
 
 @SpringBootTest
@@ -27,16 +28,16 @@ public class ClimbServiceTests {
 	@MockBean
 	private ClimbRepo mockRepo;
 
-	List<ClimbDao> expectedModels;
+	List<Climb> expectedModels;
 	List<ClimbDto> expectedDtos;
-	ClimbDao expectedModel;
+	Climb expectedModel;
 	ClimbDto expectedDto;
 
 	@BeforeEach
 	void setup() {
-		expectedModels = List.of(new ClimbDao(), new ClimbDao());
+		expectedModels = List.of(new Climb(), new Climb());
 		expectedDtos = List.of(new ClimbDto(), new ClimbDto());
-		expectedModel = new ClimbDao();
+		expectedModel = new Climb();
 		expectedDto = new ClimbDto();
 	}
 
@@ -51,11 +52,11 @@ public class ClimbServiceTests {
 
 	@Test
 	void createTest() {
-		Mockito.when(this.mockRepo.save(new ClimbDao())).thenReturn(expectedModel);
+		Mockito.when(this.mockRepo.save(new Climb())).thenReturn(expectedModel);
 
-		assertThat(this.service.create(new ClimbDao())).isEqualTo(expectedDto);
+		assertThat(this.service.create(new Climb())).isEqualTo(expectedDto);
 
-		Mockito.verify(this.mockRepo, Mockito.times(1)).save(new ClimbDao());
+		Mockito.verify(this.mockRepo, Mockito.times(1)).save(new Climb());
 	}
 
 	@Test
@@ -69,44 +70,44 @@ public class ClimbServiceTests {
 
 	@Test
 	void updateTest() {
-		ClimbDao beforeDao = new ClimbDao();
-		beforeDao.setId(1L);
-		beforeDao.setAttempts(10);
+		Climb before = new Climb();
+		before.setId(1L);
+		before.setAttempts(10);
 
-		ClimbDao afterDao = new ClimbDao();
-		afterDao.setId(1L);
-		afterDao.setAttempts(5);
+		Climb after = new Climb();
+		after.setId(1L);
+		after.setAttempts(5);
 
 		ClimbDto afterDto = new ClimbDto();
 		afterDto.setId(1L);
 		afterDto.setAttempts(5);
 
-		Mockito.when(this.mockRepo.readId(1L)).thenReturn(List.of(beforeDao));
-		Mockito.when(this.mockRepo.save(beforeDao)).thenReturn(beforeDao);
+		Mockito.when(this.mockRepo.findById(1L)).thenReturn(Optional.of(before));
+		Mockito.when(this.mockRepo.save(before)).thenReturn(before);
 
-		assertThat(this.service.update(afterDao)).isEqualTo(afterDto);
+		assertThat(this.service.update(after)).isEqualTo(afterDto);
 
-		Mockito.verify(this.mockRepo, Mockito.times(1)).readId(1L);
+		Mockito.verify(this.mockRepo, Mockito.times(1)).findById(1L);
+		Mockito.verify(this.mockRepo, Mockito.times(1)).save(before);
 	}
-	
+
 	@Test
 	void successfulDeleteTest() {
 		Mockito.when(this.mockRepo.exists(List.of(1L, 2L))).thenReturn(List.of());
-		
+
 		assertThat(this.service.delete(List.of(1L, 2L))).isEqualTo(true);
 
 		Mockito.verify(this.mockRepo, Mockito.times(1)).delete(List.of(1L, 2L));
 	}
 
+	@Test
+	void unuccessfulDeleteTest() {
+		Mockito.when(this.mockRepo.exists(List.of(1L, 2L))).thenReturn(List.of(expectedModel));
 
-@Test
-void unuccessfulDeleteTest() {
-	Mockito.when(this.mockRepo.exists(List.of(1L, 2L))).thenReturn(List.of(expectedModel));
-	
-	assertThat(this.service.delete(List.of(1L, 2L))).isEqualTo(false);
-	
-	Mockito.verify(this.mockRepo, Mockito.times(1)).delete(List.of(1L, 2L));
-}
+		assertThat(this.service.delete(List.of(1L, 2L))).isEqualTo(false);
+
+		Mockito.verify(this.mockRepo, Mockito.times(1)).delete(List.of(1L, 2L));
+	}
 
 	@Test
 	void readIdTest() {
@@ -122,7 +123,7 @@ void unuccessfulDeleteTest() {
 
 	@Test
 	void readUserIdTest() {
-		UserDao user = new UserDao();
+		User user = new User();
 		user.setId(1L);
 		expectedModel.setId(1L);
 		expectedModel.setUser(user);
@@ -137,9 +138,9 @@ void unuccessfulDeleteTest() {
 
 	@Test
 	void readRouteIdTest() {
-		UserDao user = new UserDao();
+		User user = new User();
 		user.setId(1L);
-		RouteDao route = new RouteDao();
+		Route route = new Route();
 		route.setId(1L);
 		expectedModel.setId(1L);
 		expectedModel.setUser(user);
@@ -156,9 +157,9 @@ void unuccessfulDeleteTest() {
 
 	@Test
 	void readAttempts() {
-		UserDao user = new UserDao();
+		User user = new User();
 		user.setId(1L);
-		RouteDao route = new RouteDao();
+		Route route = new Route();
 		route.setId(1L);
 		expectedModel.setId(1L);
 		expectedModel.setUser(user);
