@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.qa.climbtracker.domain.dao.RouteDao;
+import com.qa.climbtracker.domain.model.Route;
 import com.qa.climbtracker.domain.dto.RouteDto;
 import com.qa.climbtracker.service.RouteService;
 
@@ -33,12 +33,12 @@ public class RouteController {
 	}
 
 	@PostMapping("/create")
-	public ResponseEntity<RouteDto> create(@RequestBody RouteDao route) {
+	public ResponseEntity<RouteDto> create(@RequestBody Route route) {
 		return new ResponseEntity<>(this.service.create(route), HttpStatus.CREATED);
 	}
 
 	@PostMapping("/createMany")
-	public ResponseEntity<List<RouteDto>> createMany(@RequestBody List<RouteDao> routes) {
+	public ResponseEntity<List<RouteDto>> createMany(@RequestBody List<Route> routes) {
 		return new ResponseEntity<>(this.service.createMany(routes), HttpStatus.CREATED);
 	}
 
@@ -48,7 +48,7 @@ public class RouteController {
 	}
 
 	@PutMapping("/update")
-	public ResponseEntity<RouteDto> update(@RequestBody RouteDao route) {
+	public ResponseEntity<RouteDto> update(@RequestBody Route route) {
 		return new ResponseEntity<>(this.service.update(route), HttpStatus.ACCEPTED);
 	}
 
