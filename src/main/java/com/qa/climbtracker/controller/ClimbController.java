@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.qa.climbtracker.domain.dao.ClimbDao;
+import com.qa.climbtracker.domain.model.Climb;
 import com.qa.climbtracker.domain.dto.ClimbDto;
 import com.qa.climbtracker.service.ClimbService;
 
@@ -32,12 +32,12 @@ public class ClimbController {
 	}
 	
 	@PostMapping("/create")
-	public ResponseEntity<ClimbDto> create(@RequestBody ClimbDao climb) {
+	public ResponseEntity<ClimbDto> create(@RequestBody Climb climb) {
 		return new ResponseEntity<>(this.service.create(climb), HttpStatus.CREATED);
 	}
 	
 	@PostMapping("/createMany")
-	public ResponseEntity<List<ClimbDto>> createMany(@RequestBody List<ClimbDao> climbs) {
+	public ResponseEntity<List<ClimbDto>> createMany(@RequestBody List<Climb> climbs) {
 		return new ResponseEntity<>(this.service.createMany(climbs), HttpStatus.CREATED);
 	}
 
@@ -47,7 +47,7 @@ public class ClimbController {
 	}
 
 	@PutMapping("/update")
-	public ResponseEntity<ClimbDto> update(@RequestBody ClimbDao climb) {
+	public ResponseEntity<ClimbDto> update(@RequestBody Climb climb) {
 		return new ResponseEntity<>(this.service.update(climb), HttpStatus.ACCEPTED);
 	}
 

@@ -7,7 +7,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.qa.climbtracker.domain.dao.ClimbDao;
+import com.qa.climbtracker.domain.model.Climb;
 import com.qa.climbtracker.domain.dto.ClimbDto;
 import com.qa.climbtracker.repo.ClimbRepo;
 
@@ -22,15 +22,15 @@ public class ClimbService {
 		this.mapper = mapper;
 	}
 	
-	private ClimbDto mapToDto(ClimbDao climb) {
+	private ClimbDto mapToDto(Climb climb) {
 		return this.mapper.map(climb, ClimbDto.class);
 	}
 	
-	public ClimbDto create(ClimbDao climb) {
+	public ClimbDto create(Climb climb) {
 		return this.mapToDto(this.repo.save(climb));
 	}
 	
-	public List<ClimbDto> createMany(List<ClimbDao> climbs) {
+	public List<ClimbDto> createMany(List<Climb> climbs) {
 		return this.repo.saveAll(climbs).stream().map(this::mapToDto).collect(Collectors.toList());
 	}
 
@@ -38,11 +38,10 @@ public class ClimbService {
 		return this.repo.findAll().stream().map(this::mapToDto).collect(Collectors.toList());
 	}
 	
-	public ClimbDto update(ClimbDao newClimb) {
-		ClimbDao climb = this.repo.findById(newClimb.getId()).get();
+	public ClimbDto update(Climb newClimb) {
+		Climb climb = this.repo.readId(newClimb.getId()).get(0);
 		climb.setTimeTaken(newClimb.getTimeTaken());
 		climb.setAttempts(newClimb.getAttempts());
-
 		return this.mapToDto(this.repo.save(climb));
 	}
 	
