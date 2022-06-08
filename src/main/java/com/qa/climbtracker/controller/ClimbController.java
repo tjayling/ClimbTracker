@@ -76,7 +76,7 @@ public class ClimbController {
 	}
 	
 	@GetMapping("/readBy/user_id:{userId}/attempts:{attempts}")
-	public ResponseEntity<List<ClimbDto>> readCompleted(@PathVariable Long userId, @PathVariable Integer attempts) {
+	public ResponseEntity<List<ClimbDto>> readAttempts(@PathVariable Long userId, @PathVariable Integer attempts) {
 		List<ClimbDto> climbs = this.service.readAttempts(userId, attempts);
 		return new ResponseEntity<>(climbs, HttpStatus.OK);
 	}
