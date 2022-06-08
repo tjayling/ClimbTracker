@@ -2,7 +2,7 @@ package com.qa.climbtracker.domain.dto;
 
 import java.util.List;
 
-import com.qa.climbtracker.domain.dao.ClimbDao;
+import com.qa.climbtracker.domain.model.Climb;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,7 +15,7 @@ public class UserDto {
 	private String lastName;
 	public String username;
 	public String password;
-	private List<ClimbDao> climbs;
+	private List<Climb> climbs;
 }
 
 // id
