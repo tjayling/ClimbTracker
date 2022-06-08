@@ -1,4 +1,4 @@
-package com.qa.climbtracker.domain.dao;
+package com.qa.climbtracker.domain.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,18 +16,18 @@ import lombok.NoArgsConstructor;
 @Entity
 @Data
 @NoArgsConstructor
-public class ClimbDao {
+public class Climb {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@ManyToOne(targetEntity = UserDao.class)
+	@ManyToOne(targetEntity = User.class)
 	@JoinColumn(name = "user_id", nullable = false)
 	@OnDelete(action = OnDeleteAction.CASCADE)
-	private UserDao user;
-	@ManyToOne(targetEntity = RouteDao.class)
+	private User user;
+	@ManyToOne(targetEntity = Route.class)
 	@JoinColumn(name = "route_id", nullable = false)
 	@OnDelete(action = OnDeleteAction.CASCADE)
-	private RouteDao route;
+	private Route route;
 	private Integer timeTaken;
 	private Integer attempts;
 }

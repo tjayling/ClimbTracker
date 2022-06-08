@@ -1,4 +1,4 @@
-package com.qa.climbtracker.domain.dao;
+package com.qa.climbtracker.domain.model;
 
 import java.util.List;
 
@@ -17,21 +17,17 @@ import lombok.NoArgsConstructor;
 @Entity
 @Data
 @NoArgsConstructor
-public class UserDao {
+public class Route {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private String firstName;
-	private String lastName;
-	private String username;
-	private String password;
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+	private String name;
+	private String grade;
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "route")
 	@JsonBackReference
-	private List<ClimbDao> climbs;
+	private List<Climb> climbs;
 }
 
 // id
-// first name
-// last name
-// username
-// password
+// name 
+// grade

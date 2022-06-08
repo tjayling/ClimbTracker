@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.qa.climbtracker.domain.dao.UserDao;
+import com.qa.climbtracker.domain.model.User;
 import com.qa.climbtracker.domain.dto.UserDto;
 import com.qa.climbtracker.service.UserService;
 
@@ -32,12 +32,12 @@ public class UserController {
 		}
 
 	@PostMapping("/create")
-	public ResponseEntity<UserDto> create(@RequestBody UserDao user) {
+	public ResponseEntity<UserDto> create(@RequestBody User user) {
 		return new ResponseEntity<>(this.service.create(user), HttpStatus.CREATED);
 	}
 
 	@PostMapping("/createMany")
-	public ResponseEntity<List<UserDto>> createMany(@RequestBody List<UserDao> users) {
+	public ResponseEntity<List<UserDto>> createMany(@RequestBody List<User> users) {
 		return new ResponseEntity<>(this.service.createMany(users), HttpStatus.CREATED);
 	}
 
@@ -47,7 +47,7 @@ public class UserController {
 	}
 
 	@PutMapping("/update")
-	public ResponseEntity<UserDto> update(@RequestBody UserDao user) {
+	public ResponseEntity<UserDto> update(@RequestBody User user) {
 		return new ResponseEntity<>(this.service.update(user), HttpStatus.ACCEPTED);
 	}
 
@@ -64,7 +64,7 @@ public class UserController {
 	}
 
 	@GetMapping("/readBy/username:{username}")
-	public ResponseEntity<List<UserDto>> readUserId(@PathVariable String username) {
+	public ResponseEntity<List<UserDto>> readUsername(@PathVariable String username) {
 		List<UserDto> users = this.service.readUsername(username);
 		return new ResponseEntity<>(users, HttpStatus.OK);
 	}

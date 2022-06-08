@@ -7,7 +7,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.qa.climbtracker.domain.dao.RouteDao;
+import com.qa.climbtracker.domain.model.Route;
 import com.qa.climbtracker.domain.dto.RouteDto;
 import com.qa.climbtracker.repo.RouteRepo;
 
@@ -22,15 +22,15 @@ public class RouteService {
 		this.mapper = mapper;
 	}
 	
-	private RouteDto mapToDto(RouteDao route) {
+	private RouteDto mapToDto(Route route) {
 		return this.mapper.map(route, RouteDto.class);
 	}
 	
-	public RouteDto create(RouteDao route) {
+	public RouteDto create(Route route) {
 		return this.mapToDto(this.repo.save(route));
 	}
 	
-	public List<RouteDto> createMany(List<RouteDao> routes) {
+	public List<RouteDto> createMany(List<Route> routes) {
 		return this.repo.saveAll(routes).stream().map(this::mapToDto).collect(Collectors.toList());
 	}
 
@@ -38,9 +38,10 @@ public class RouteService {
 		return this.repo.findAll().stream().map(this::mapToDto).collect(Collectors.toList());
 	}
 	
-	public RouteDto update(RouteDao newRoute) {
-		RouteDao route = this.repo.findById(newRoute.getId()).get();
-		route.setGrade(null);
+	public RouteDto update(Route newRoute) {
+		Route route = this.repo.findById(newRoute.getId()).get();
+		route.setName(newRoute.getName());
+		route.setGrade(newRoute.getGrade());
 		return this.mapToDto(this.repo.save(route));
 	}
 	
