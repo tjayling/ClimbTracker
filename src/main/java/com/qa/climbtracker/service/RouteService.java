@@ -40,7 +40,8 @@ public class RouteService {
 	
 	public RouteDto update(Route newRoute) {
 		Route route = this.repo.findById(newRoute.getId()).get();
-		route.setGrade(null);
+		route.setName(newRoute.getName());
+		route.setGrade(newRoute.getGrade());
 		return this.mapToDto(this.repo.save(route));
 	}
 	

@@ -39,7 +39,7 @@ public class ClimbService {
 	}
 	
 	public ClimbDto update(Climb newClimb) {
-		Climb climb = this.repo.readId(newClimb.getId()).get(0);
+		Climb climb = this.repo.findById(newClimb.getId()).get();
 		climb.setTimeTaken(newClimb.getTimeTaken());
 		climb.setAttempts(newClimb.getAttempts());
 		return this.mapToDto(this.repo.save(climb));
