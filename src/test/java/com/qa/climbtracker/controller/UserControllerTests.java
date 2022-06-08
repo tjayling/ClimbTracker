@@ -36,7 +36,7 @@ public class UserControllerTests {
 	@Test
 	void readAllTest() {
 		List<UserDto> expectedDtos = List.of(new UserDto());
-		ResponseEntity<List<UserDto>> expectedResponseEntity = new ResponseEntity<>(List.of(new UserDto()),
+		ResponseEntity<List<UserDto>> expectedResponseEntity = new ResponseEntity<>(expectedDtos,
 				HttpStatus.OK);
 
 		Mockito.when(this.mockService.readAll()).thenReturn(expectedDtos);
@@ -63,7 +63,7 @@ public class UserControllerTests {
 	void createManyTest() {
 		List<User> climbs = List.of(new User());
 		List<UserDto> expectedDtos = List.of(new UserDto());
-		ResponseEntity<List<UserDto>> expectedResponseEntity = new ResponseEntity<>(List.of(new UserDto()),
+		ResponseEntity<List<UserDto>> expectedResponseEntity = new ResponseEntity<>(expectedDtos,
 				HttpStatus.CREATED);
 
 		Mockito.when(this.mockService.createMany(climbs)).thenReturn(expectedDtos);
@@ -114,7 +114,7 @@ public class UserControllerTests {
 	void readIdTest() {
 		Long id = 1L;
 		List<UserDto> expectedDtos = List.of(new UserDto());
-		ResponseEntity<List<UserDto>> expectedResponseEntity = new ResponseEntity<>(List.of(new UserDto()),
+		ResponseEntity<List<UserDto>> expectedResponseEntity = new ResponseEntity<>(expectedDtos,
 				HttpStatus.OK);
 
 		Mockito.when(this.mockService.readId(id)).thenReturn(expectedDtos);
@@ -125,10 +125,13 @@ public class UserControllerTests {
 	}
 	
 	@Test
-	void readUserIdTest() {
+	void readUsernameTest() {
 		String username = "abc";
-		ResponseEntity<List<UserDto>> expectedResponseEntity = new ResponseEntity<>(List.of(new UserDto()),
+		List<UserDto> expectedDtos = List.of(new UserDto());
+		ResponseEntity<List<UserDto>> expectedResponseEntity = new ResponseEntity<>(expectedDtos,
 				HttpStatus.OK);
+		
+		Mockito.when(this.mockService.readUsername(username)).thenReturn(expectedDtos);
 		
 		assertThat(this.controller.readUsername(username)).isEqualTo(expectedResponseEntity);
 		
