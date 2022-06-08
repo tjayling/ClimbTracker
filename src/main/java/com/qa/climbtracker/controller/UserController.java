@@ -64,7 +64,7 @@ public class UserController {
 	}
 
 	@GetMapping("/readBy/username:{username}")
-	public ResponseEntity<List<UserDto>> readUserId(@PathVariable String username) {
+	public ResponseEntity<List<UserDto>> readUsername(@PathVariable String username) {
 		List<UserDto> users = this.service.readUsername(username);
 		return new ResponseEntity<>(users, HttpStatus.OK);
 	}
