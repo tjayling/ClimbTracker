@@ -8,6 +8,7 @@ class ClimbTrackerApplicationTests {
 
 	@Test
 	void contextLoads() {
+		ClimbTrackerApplication.main(new String[] {});
 	}
 
 }
