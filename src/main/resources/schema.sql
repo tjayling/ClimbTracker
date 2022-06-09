@@ -1,0 +1,30 @@
+DROP TABLE IF EXISTS climbs;
+DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS routes;
+CREATE TABLE IF NOT EXISTS routes
+(
+   id BIGINT NOT NULL AUTO_INCREMENT,
+   grade VARCHAR (255),
+   name VARCHAR (255),
+   PRIMARY KEY (id)
+);
+CREATE TABLE IF NOT EXISTS users
+(
+   id BIGINT NOT NULL AUTO_INCREMENT,
+   first_name VARCHAR (255),
+   last_name VARCHAR (255),
+   password VARCHAR (255),
+   username VARCHAR (255),
+   PRIMARY KEY (id)
+);
+CREATE TABLE IF NOT EXISTS climbs
+(
+   id BIGINT NOT NULL AUTO_INCREMENT,
+   attempts INTEGER (5),
+   time_taken INTEGER (5),
+   route_id BIGINT NOT NULL,
+   user_id BIGINT NOT NULL,
+   PRIMARY KEY (id),
+   FOREIGN KEY (route_id) REFERENCES routes (id) ON DELETE CASCADE,
+   FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
+);
