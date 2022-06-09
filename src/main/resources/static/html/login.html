@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/login.css" />
+    <title>login</title>
+  </head>
+  <body>
+    <!-- <header style="display: flex"> -->
+    <header id="header" role="banner" class="hero">
+      <nav class="left-buffer left-nav"></nav>
+      <div class="title-container">
+        <h1 id="title">climb tracker v1.0</h1>
+      </div>
+      <div class="right-buffer right-nav"></div>
+    </header>
+    <section id="login-form">
+      <div class="div-default" id="login-form-container">
+        <div id="login-container">
+          <div id="signup-container" style="display: none">
+            <!-- FIRST NAME INPUT -->
+            <div class="input-container" id="last-name-input-container">
+              <input
+                type="text"
+                name="first-name"
+                id="first-name-input"
+                placeholder="first name..."
+              />
+            </div>
+            <div id="first-name-error" class="error"></div>
+            <!-- LAST NAME INPUT -->
+            <div class="input-container" id="last-name-input-container">
+              <input
+                type="text"
+                name="last-name"
+                id="last-name-input"
+                placeholder="last name..."
+              />
+            </div>
+            <div id="last-name-error" class="error"></div>
+          </div>
+        </div>
+        <!-- USERNAME INPUT -->
+        <div class="input-container" id="username-input-container">
+          <input
+            type="text"
+            name="username"
+            id="username-input"
+            placeholder="username..."
+          />
+        </div>
+        <div id="username-error" class="error"></div>
+        <!-- PASSWORD INPUT -->
+        <div class="input-container" id="password-input-container">
+          <input
+            type="text"
+            name="password"
+            id="password-input"
+            placeholder="password..."
+          />
+        </div>
+        <div id="password-error" class="error"></div>
+        <!-- LOG IN BUTTON -->
+        <div id="login-button">
+          <div id="login-button-container">
+            <button id="login-button" onclick="logIn()">log in</button>
+          </div>
+          <div id="new-user-container">
+            <a id="new-user-link" onclick="toggleSignUp()">new user?</a>
+          </div>
+        </div>
+        <!-- SIGN UP BUTTON -->
+        <div id="signup-button" style="display: none">
+          <div id="signup-button-container">
+            <button id="signup-button" onclick="signUp()">sign up</button>
+          </div>
+          <div id="existing-user-container">
+            <a id="existing-user-link" onclick="toggleLogIn()">existing user?</a>
+          </div>
+        </div>
+      </div>
+    </section>
+    <script src="../js/cookie.js"></script>
+    <script src="../js/error.js"></script>
+    <script src="../js/login.js"></script>
+  </body>
+</html>

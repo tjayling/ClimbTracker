@@ -1,0 +1,28 @@
+body {
+  background-image: url(../img/header-bg.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+h1 {
+  background-color: var(--div-background);
+  border-radius: 20px;
+}
+
+header {
+  color: var(--light-grey);
+}
+
+button {
+  font-size: 20px;
+}
+
+#login-form {
+  display: flex;
+  justify-content: center;
+  margin: 50px;
+}
+
+#login-form-container {
+  padding: 50px;
+}
