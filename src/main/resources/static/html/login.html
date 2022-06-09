@@ -13,7 +13,7 @@
     <header id="header" role="banner" class="hero">
       <nav class="left-buffer left-nav"></nav>
       <div class="title-container">
-        <h1>climb tracker v1.0</h1>
+        <h1 id="title">climb tracker v1.0</h1>
       </div>
       <div class="right-buffer right-nav"></div>
     </header>
@@ -66,19 +66,19 @@
         <!-- LOG IN BUTTON -->
         <div id="login-button">
           <div id="login-button-container">
-            <button onclick="logIn()">log in</button>
+            <button id="login-button" onclick="logIn()">log in</button>
           </div>
           <div id="new-user-container">
-            <a onclick="toggleSignUp()">new user?</a>
+            <a id="new-user-link" onclick="toggleSignUp()">new user?</a>
           </div>
         </div>
         <!-- SIGN UP BUTTON -->
         <div id="signup-button" style="display: none">
           <div id="signup-button-container">
-            <button onclick="signUp()">sign up</button>
+            <button id="signup-button" onclick="signUp()">sign up</button>
           </div>
           <div id="existing-user-container">
-            <a onclick="toggleLogIn()">existing user?</a>
+            <a id="existing-user-link" onclick="toggleLogIn()">existing user?</a>
           </div>
         </div>
       </div>
