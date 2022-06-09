@@ -106,13 +106,6 @@ function logOut() {
 }
 
 async function testData() {
-  let testRoutes = [
-    { name: `Booooring`, grade: `v1` },
-    { name: `The Techy One`, grade: `v2` },
-    { name: `Ow My Fingers`, grade: `v3` },
-    { name: `The Beast!`, grade: `v4` },
-  ];
-
   let testClimbs = [
     {
       user: { id: 1 },
@@ -140,14 +133,6 @@ async function testData() {
     },
   ];
 
-  let routeResponse = await fetch(`http://localhost:8080/route/createMany`, {
-    method: `post`,
-    headers: { "Content-type": "application/json" },
-    body: JSON.stringify(testRoutes),
-  });
-  if (routeResponse.status !== 201)
-    console.error(`status: ${routeResponse.status}`);
-
   let climbResponse = await fetch(`http://localhost:8080/climb/createMany`, {
     method: `post`,
     headers: { "Content-type": "application/json" },
@@ -156,7 +141,6 @@ async function testData() {
 
   if (climbResponse.status !== 201) console.error(`status: ${response.status}`);
 
-  await routeResponse.json();
   await climbResponse.json();
 
   readAll();

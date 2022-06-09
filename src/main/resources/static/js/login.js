@@ -37,7 +37,6 @@ async function logIn() {
 
   if (response.status !== 200) console.error(`status: ${response.status}`);
   let data = await response.json();
-  console.log(data.length);
   tryAgain =
     data.length > 0
       ? removeError(`username`)
@@ -56,11 +55,8 @@ async function signUp() {
 
   // check for any empty inputs - variables will be falsey if left empty
   let tryAgain = firstName
-    ? removeError(`first-name`) /* returns false */
-    : appendError(
-        `first-name`,
-        `please enter your first name`
-      ); /* returns true */
+    ? removeError(`first-name`)
+    : appendError(`first-name`, `please enter your first name`);
   if (!tryAgain)
     tryAgain = lastName
       ? removeError(`last-name`)
